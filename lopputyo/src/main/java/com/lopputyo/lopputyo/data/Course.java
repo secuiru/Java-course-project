@@ -1,8 +1,10 @@
 package com.lopputyo.lopputyo.data;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.ArrayList;
 
-public class Course {
+public class Course implements Serializable {
 
     private String name;
     private String teacher;

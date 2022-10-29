@@ -1,9 +1,8 @@
 
 package com.lopputyo.lopputyo.controller;
 
-import org.apache.catalina.filters.AddDefaultCharsetFilter;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.objenesis.strategy.StdInstantiatorStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,20 +18,17 @@ public class StudentRestController {
     @Autowired
     StudentService studentService;
 
-    @GetMapping("")
-    public  String loadStudents(){
-        return "hello";
-}
+   
 
     @GetMapping("/students")
     public List<Student> getStudents(){
         return studentService.getStudents();
     }
-    @GetMapping("/readstudents")
+   /*  @GetMapping("/readstudents")
     public List<Student> readStudents(){
         return studentService.readStudents();
         
-    }
+    }*/
 
     @PostMapping("/addstudent")
     public String addStudent(@RequestParam String fname,@RequestParam String lname ){
@@ -49,9 +45,9 @@ public class StudentRestController {
     public List<Course> getCourse(){
         return studentService.getCourse();
     }
-    @GetMapping("/coursestudents")
-    public List<Integer> getCourseStudents(){
-        return studentService.getCourseStudents();
+    @PostMapping("/coursestudents")
+    public List<Integer> getCourseStudents(@RequestParam String coursename){
+        return studentService.getCourseStudents(coursename);
     }
 
     @PostMapping("/newcourse")

@@ -19,47 +19,15 @@ public class StudentService{
     @Autowired
    
     StudentFileService studentFileService;
+   
     private List<Student> students = new ArrayList<>();
     private List<Course> courses = new ArrayList<>();
-    private List<Integer> courseStudents = new ArrayList<>();
+    //private List<Integer> courseStudents = new ArrayList<>();
 
     public StudentService(){
 
-       
-       /*  try {
-            students = studentFileService.readStudent();
-            System.out.println("this is student service data "+students);
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
-        catch(IOException e){
-        System.out.println(e);
-        }
-        catch(NullPointerException e){
-        System.out.println(e);
-        
-    }catch(ClassNotFoundException e){
-        System.out.println(e);
-    }*/
     }
-    public List<Student>readStudents()      
-    {
-        try {
-             students=studentFileService.readStudent();
-            System.out.println("this is student service data "+students);
-           
-       }catch(NullPointerException e){
-        System.out.println(e);
-    }
-    catch(IOException e){
-        System.out.println(e);
-    }
-    catch(ClassNotFoundException e){
-        System.out.println(e);
-    }
-    
-    return new ArrayList<>(students);
-    }
+
  
     public void addStudent(Student student){
         students.add(student);
@@ -67,7 +35,19 @@ public class StudentService{
     }
 
     public List<Student>getStudents(){
-       
+        try {
+            students=studentFileService.readStudent();
+           
+          
+      }catch(NullPointerException e){
+       System.out.println(e);
+   }
+   catch(IOException e){
+       System.out.println(e);
+   }
+   catch(ClassNotFoundException e){
+       System.out.println(e);
+   }
      return new ArrayList<>(students);
     }
 
@@ -78,12 +58,25 @@ public class StudentService{
 
 
     public List<Course> getCourse(){
+        try {
+            courses=studentFileService.readCourse();
+          
+      }catch(NullPointerException e){
+       System.out.println(e);
+   }
+   catch(IOException e){
+       System.out.println(e);
+   }
+   catch(ClassNotFoundException e){
+       System.out.println(e);
+   }
         return new ArrayList<>(courses);
     }
 
     public void newCourse(Course course){
         
         courses.add(course);
+        studentFileService.writeCourse(courses);
     }
 
     public void addToCourse(int studentid,String courseName){   //Add studentid to given course
@@ -99,16 +92,20 @@ public class StudentService{
                courseStudents.add(studentid);
                System.out.println(studentid);
                course2.setCoursestudents(courseStudents);
+               studentFileService.writeCourse(courses);
                 
             }
         }
     
     }
+    
     }
     
-    public List<Integer>getCourseStudents(){
-        
-        
+    public List<Integer>getCourseStudents(String coursename){
+        List<Integer> courseStudents = new ArrayList<>();
+            for (Course course : courses) {
+                if(course.getName().equals(coursename)){
+                courseStudents =course.getCoursestudents();
                 for (Integer integer : courseStudents) {
                     for(Student student : students) {
                         if(integer==student.getStudentid()){
@@ -119,8 +116,8 @@ public class StudentService{
                     }
                 
                }
-            
-        
+                }
+            }
        
         return new ArrayList<>(courseStudents);
        }
