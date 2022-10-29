@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lopputyo.lopputyo.service.StudentService;
+
 public class Student implements Serializable {
     private String fname;
     private String lname;
     private int studentid;
-
-    private static int count =0;
+    private List<Student> students;
+    
 
     public Student(String fname, String lname){
         this.fname=fname;
@@ -23,14 +23,7 @@ public class Student implements Serializable {
     public Student(List <Student> students){
         
     }
-    public List<Student> students= new ArrayList<>();
-
-   
     
-
-    
-   
-
     public String getFname(){
         return this.fname;
     }

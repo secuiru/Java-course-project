@@ -24,19 +24,14 @@ public class StudentRestController {
     public List<Student> getStudents(){
         return studentService.getStudents();
     }
-   /*  @GetMapping("/readstudents")
-    public List<Student> readStudents(){
-        return studentService.readStudents();
-        
-    }*/
+   
 
     @PostMapping("/addstudent")
     public String addStudent(@RequestParam String fname,@RequestParam String lname ){
 
         studentService.addStudent(new Student(fname,lname));
-       
 
-        return"";
+        return"New student added";
     }
 
 
@@ -45,9 +40,17 @@ public class StudentRestController {
     public List<Course> getCourse(){
         return studentService.getCourse();
     }
+
     @PostMapping("/coursestudents")
-    public List<Integer> getCourseStudents(@RequestParam String coursename){
+    public List<Student> getCourseStudents(@RequestParam String coursename){
+
         return studentService.getCourseStudents(coursename);
+    }
+
+    @PostMapping("/studentcourses")
+    public List<Course> getStudentsCourses(@RequestParam int studentid){
+
+        return studentService.getStudentsCourses(studentid);
     }
 
     @PostMapping("/newcourse")
@@ -55,15 +58,14 @@ public class StudentRestController {
 
         studentService.newCourse(new Course(name,teacher,new ArrayList<>()));
        
-
-        return "Course";
+        return "New course was made";
     }
     
     @PostMapping("/addtocourse")
     public void addtocourse(@RequestParam int studentid,@RequestParam String course){
+
        studentService.addToCourse(studentid,course);
        
-        
     }       
     }
 
